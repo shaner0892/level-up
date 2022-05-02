@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import "./NavBar.css"
 
 export const NavBar = () => {
@@ -7,10 +8,10 @@ export const NavBar = () => {
     return (
         <ul className="navbar">
             <li className="navbar__item">
-                Navigation link
+                Games
             </li>
             <li className="navbar__item">
-                Navigation link
+                Events
             </li>
             <li className="navbar__item">
                 Navigation link
