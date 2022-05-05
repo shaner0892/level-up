@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
-import { getEvents } from "./EventManager.js"
+import { deleteEvent, getEvents } from "./EventManager.js"
 
 export const EventList = (props) => {
     const [ events, setEvents ] = useState([])
     const history = useHistory()
+
     useEffect(() => {
         getEvents().then(data => setEvents(data))
     }, [])
+
+    const removeEvent = (id) => {
+        deleteEvent(id)
+            .then(()=> {
+                getEvents()
+                    .then((eventData) => {
+                        setEvents(eventData)
+                    })
+            })
+    }
 
     return (
         <>
@@ -23,6 +34,7 @@ export const EventList = (props) => {
                             <div className="event__about">{event.description}</div>
                             <div className="event__when">It will be on {event.date} at {event.time}</div>
                             <button id="btn" onClick={() => history.push(`/edit-event/${event.id}`)}> Edit Event </button>
+                            <button id="btn" onClick={() => {removeEvent(event.id)}}> Delete Event </button>
                             <button id="btn" onClick={() => history.push(`/event-details/${event.id}`)}> View More </button>
                             <br></br>
                         </section>

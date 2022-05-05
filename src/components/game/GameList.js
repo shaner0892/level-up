@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
-import { getGames } from "./GameManager.js"
+import { deleteGame, getGames } from "./GameManager.js"
 
 export const GameList = (props) => {
     const [games, setGames] = useState([])
@@ -9,6 +9,17 @@ export const GameList = (props) => {
     useEffect(() => {
         getGames().then(data => setGames(data))
     }, [])
+
+    const removeGame = (id) => {
+        deleteGame(id)
+            .then(()=> {
+                getGames()
+                    .then((gameData) => {
+                        setGames(gameData)
+                    })
+            })
+    }
+
 
     return (
         <>
@@ -23,6 +34,7 @@ export const GameList = (props) => {
                         return <section key={`game--${game.id}`} className="game">
                             <div className="game__title">{game.title} by {game.maker}</div>
                             <button id="btn" onClick={() => history.push(`/edit-game/${game.id}`)}> Edit Game </button>
+                            <button id="btn" onClick={() => {removeGame(game.id)}}> Delete Game </button>
                             <button id="btn" onClick={() => history.push(`/game-details/${game.id}`)}> View More </button>
                             <br></br>
                         </section>
