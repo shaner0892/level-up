@@ -1,0 +1,29 @@
+import React, { useEffect, useState } from "react"
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
+import { getCurrentEvent } from "./EventManager.js"
+
+export const EventDetails = () => {
+    const history = useHistory()
+    const [ event, setEvent ] = useState({})
+    const {eventId} = useParams()
+
+    useEffect(
+        () => {
+            getCurrentEvent(parseInt(eventId)).then((data) => {
+                setEvent(data)
+            })
+        }, 
+        []
+    )
+
+    return (
+        <>
+            <section key={`event--${event.id}`} className="event">
+                <div className="event__game">Title: {event.game?.title}</div>
+                <div className="event__about">{event.description}</div>
+                <div className="event__when">It will be on {event.date} at {event.time}</div>
+                <button id="btn" onClick={() => history.push(`/edit-event/${event.id}`)}> Edit Event </button>
+            </section>
+        </>
+    )
+}

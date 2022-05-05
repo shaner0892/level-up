@@ -18,3 +18,25 @@ export const createEvent = (event) => {
     })
         .then(getEvents);
 }
+
+export const putEvent = (event, id) => {
+    return fetch(`http://localhost:8000/events/${id}`, { 
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`
+        },
+        body: JSON.stringify(event)
+    })
+        .then(getEvents);
+}
+
+
+export const getCurrentEvent = (id) => {
+    return fetch(`http://localhost:8000/events/${id}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("lu_token")}`
+        }
+    })
+        .then(res => res.json())
+}

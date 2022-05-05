@@ -22,6 +22,9 @@ export const EventList = (props) => {
                         return <section key={`event--${event.id}`} className="event">
                             <div className="event__about">{event.description}</div>
                             <div className="event__when">It will be on {event.date} at {event.time}</div>
+                            <button id="btn" onClick={() => history.push(`/edit-event/${event.id}`)}> Edit Event </button>
+                            <button id="btn" onClick={() => history.push(`/event-details/${event.id}`)}> View More </button>
+                            <br></br>
                         </section>
                     })
                 }
