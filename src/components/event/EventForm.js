@@ -62,7 +62,7 @@ export const EventForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="date">Date: </label>
-                    <input type="text" name="date" required autoFocus className="form-control"
+                    <input type="date" name="date" required autoFocus className="form-control"
                         value={currentEvent.date}
                         onChange={changeEventState}
                     />
@@ -71,7 +71,7 @@ export const EventForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="time">Time: </label>
-                    <input type="text" name="time" required autoFocus className="form-control" 
+                    <input type="time" name="time" required autoFocus className="form-control" 
                         value={currentEvent.time}
                         onChange={changeEventState}
                     />
