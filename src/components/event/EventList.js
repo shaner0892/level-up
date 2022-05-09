@@ -6,8 +6,12 @@ export const EventList = (props) => {
     const [ events, setEvents ] = useState([])
     const history = useHistory()
 
-    useEffect(() => {
+    const loadEvents = () => {
         getEvents().then(data => setEvents(data))
+    }
+
+    useEffect(() => {
+        loadEvents()
     }, [])
 
     const removeEvent = (id) => {
@@ -33,12 +37,11 @@ export const EventList = (props) => {
                         return <section key={`event--${event.id}`} className="event">
                             <div className="event__about">{event.description}</div>
                             <div className="event__when">It will be on {event.date} at {event.time}</div>
-                            <button id="btn" onClick={() => history.push(`/edit-event/${event.id}`)}> Edit Event </button>
-                            <button id="btn" onClick={() => {removeEvent(event.id)}}> Delete Event </button>
-                            <button id="btn" onClick={() => history.push(`/event-details/${event.id}`)}> View More </button>
-                            
+                            <button id="btn" onClick={() => history.push(`/edit-event/${event.id}`)}> Edit Event </button><br></br>
+                            <button id="btn" onClick={() => {removeEvent(event.id)}}> Delete Event </button><br></br>
+                            <button id="btn" onClick={() => history.push(`/event-details/${event.id}`)}> View More </button><br></br>
                             {
-                                event.joined ? <button onClick={() => {leaveEvent(event.id)}}>Leave Event</button> : <button onClick={() => {joinEvent(event.id)}}>Join Event</button>
+                                event.joined ? <button onClick={() => {leaveEvent(event.id).then(loadEvents)}}>Leave Event</button> : <button onClick={() => {joinEvent(event.id).then(loadEvents)}}>Join Event</button>
                             }
                             <br></br>
                         </section>

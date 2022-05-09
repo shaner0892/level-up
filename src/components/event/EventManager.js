@@ -60,13 +60,13 @@ export const leaveEvent = eventId => {
 }
   
   export const joinEvent = eventId => {
-    return fetch(`http://localhost:8000/events/${eventId}/join`, { 
+    return fetch(`http://localhost:8000/events/${eventId}/signup`, { 
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("lu_token")}`
         },
-        body: JSON.stringify(event)
+        body: JSON.stringify(eventId)
     })
         .then(getEvents);
 }
