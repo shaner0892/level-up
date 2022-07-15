@@ -9,9 +9,8 @@ export const GameDetails = () => {
 
     useEffect(
         () => {
-            getCurrentGame(parseInt(gameId)).then((gameData) => {
-                updateGame(gameData)
-            })
+            getCurrentGame(parseInt(gameId))
+                .then(updateGame)
         },
         []
     )
@@ -21,7 +20,8 @@ export const GameDetails = () => {
             <section key={`game--${game.id}`} className="game">
                 <div className="game__title">{game.title} by {game.maker}</div>
                 <div className="game__players">{game.number_of_players} players needed</div>
-                <div className="game__skillLevel">Skill level is {game.skill_level}</div><br></br>
+                <div className="game__skillLevel">Skill level is {game.skill_level}</div>
+                <br></br>
                 <button id="btn" onClick={() => history.push(`/edit-game/${game.id}`)}> Edit Game </button><br></br>
             </section>
         </>

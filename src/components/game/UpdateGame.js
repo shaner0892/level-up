@@ -11,17 +11,11 @@ export const UpdateGameForm = () => {
     const {gameId} = useParams()
 
     useEffect(() => {
-        getGameTypes().then(gameTypesData => setGameTypes(gameTypesData))
+        getGameTypes()
+            .then(setGameTypes)
+        getCurrentGame(parseInt(gameId))
+            .then(updateGame)
     }, [])
-
-    useEffect(
-        () => {
-            getCurrentGame(parseInt(gameId)).then((gameData) => {
-                    updateGame(gameData)
-            })
-        },
-        []
-    )
 
     const editGameState = (event) => {
         const editedGame = Object.assign({}, game)
@@ -86,9 +80,7 @@ export const UpdateGameForm = () => {
             </fieldset>
             <button type="submit"
                 onClick={evt => {
-                    // Prevent form from being submitted
                     evt.preventDefault()
-
                     const updatedGame = {
                         maker: game.maker,
                         title: game.title,
@@ -96,7 +88,6 @@ export const UpdateGameForm = () => {
                         skill_level: parseInt(game.skill_level),
                         game_type: parseInt(game.game_type)
                     }
-
                     // Send PUT request to your API
                     putGame(updatedGame, gameId)
                         .then(() => history.push("/games"))

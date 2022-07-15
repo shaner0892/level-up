@@ -21,7 +21,8 @@ export const GameForm = () => {
     })
 
     useEffect(() => {
-        getGameTypes().then(gameTypesData => setGameTypes(gameTypesData))
+        getGameTypes()
+            .then(setGameTypes)
     }, [])
 
     const changeGameState = (event) => {
@@ -87,9 +88,7 @@ export const GameForm = () => {
             </fieldset>
             <button type="submit"
                 onClick={evt => {
-                    // Prevent form from being submitted
                     evt.preventDefault()
-
                     const createdGame = {
                         maker: game.maker,
                         title: game.title,
@@ -97,7 +96,6 @@ export const GameForm = () => {
                         skill_level: parseInt(game.skill_level),
                         game_type: parseInt(game.game_type)
                     }
-
                     // Send POST request to your API
                     createGame(createdGame)
                         .then(() => history.push("/games"))

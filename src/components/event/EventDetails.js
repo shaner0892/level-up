@@ -9,9 +9,7 @@ export const EventDetails = () => {
 
     useEffect(
         () => {
-            getCurrentEvent(parseInt(eventId)).then((data) => {
-                setEvent(data)
-            })
+            getCurrentEvent(parseInt(eventId)).then(setEvent)
         }, 
         []
     )
@@ -19,9 +17,10 @@ export const EventDetails = () => {
     return (
         <>
             <section key={`event--${event.id}`} className="event">
-                <div className="event__game">Title: {event.game?.title}</div>
-                <div className="event__about">{event.description}</div>
-                <div className="event__when">It will be on {event.date} at {event.time}</div>
+                <div className="event__game">Game Title: {event.game?.title}</div>
+                <div className="event__about">About: {event.description}</div>
+                <div className="event__when">Date: {event.date} </div>
+                <div className="event__when">Time: {event.time} </div>
                 <button id="btn" onClick={() => history.push(`/edit-event/${event.id}`)}> Edit Event </button>
             </section>
         </>

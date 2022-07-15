@@ -22,7 +22,7 @@ export const EventForm = () => {
     })
 
     useEffect(() => {
-        getGames().then(gameData => setGames(gameData))
+        getGames().then(setGames)
     }, [])
 
     const changeEventState = (evt) => {
@@ -79,16 +79,13 @@ export const EventForm = () => {
             </fieldset>
             <button type="submit"
                 onClick={evt => {
-                    // Prevent form from being submitted
                     evt.preventDefault()
-
                     const createdEvent = {
                         game: parseInt(currentEvent.game),
                         description: currentEvent.description,
                         date: currentEvent.date,
                         time: currentEvent.time
                     }
-
                     // Send POST request to your API
                     createEvent(createdEvent)
                         .then(() => history.push("/events"))

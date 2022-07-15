@@ -7,19 +7,17 @@ export const GameList = (props) => {
     const history = useHistory()
 
     useEffect(() => {
-        getGames().then(data => setGames(data))
+        getGames()
+            .then(setGames)
     }, [])
 
     const removeGame = (id) => {
         deleteGame(id)
             .then(()=> {
                 getGames()
-                    .then((gameData) => {
-                        setGames(gameData)
-                    })
+                    .then(setGames)
             })
     }
-
 
     return (
         <>
@@ -33,8 +31,8 @@ export const GameList = (props) => {
                     games.map(game => {
                         return <section key={`game--${game.id}`} className="game">
                             <div className="game__title">{game.title} by {game.maker}</div>
-                            <button id="btn" onClick={() => history.push(`/edit-game/${game.id}`)}> Edit Game </button>
-                            <button id="btn" onClick={() => {removeGame(game.id)}}> Delete Game </button>
+                            <button id="btn" onClick={() => history.push(`/edit-game/${game.id}`)}> Edit Game </button><br></br>
+                            <button id="btn" onClick={() => {removeGame(game.id)}}> Delete Game </button><br></br>
                             <button id="btn" onClick={() => history.push(`/game-details/${game.id}`)}> View More </button>
                             <br></br>
                         </section>

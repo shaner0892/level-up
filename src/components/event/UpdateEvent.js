@@ -11,17 +11,11 @@ export const UpdateEventForm = () => {
     const {eventId} = useParams()
 
     useEffect(() => {
-        getGames().then(gameData => setGames(gameData))
+        getGames()
+            .then(setGames)
+        getCurrentEvent(parseInt(eventId))
+            .then(updateEvent)
     }, [])
-
-    useEffect(
-        () => {
-            getCurrentEvent(parseInt(eventId)).then((eventData) => {
-                    updateEvent(eventData)
-            })
-        },
-        []
-    )
 
     const editEventState = (evt) => {
         const editedEvent = Object.assign({}, event)
@@ -77,16 +71,13 @@ export const UpdateEventForm = () => {
             </fieldset>
             <button type="submit"
                 onClick={evt => {
-                    // Prevent form from being submitted
                     evt.preventDefault()
-
                     const updatedEvent = {
                         game: parseInt(event.game),
                         description: event.description,
                         date: event.date,
                         time: event.time
                     }
-
                     // Send POST request to your API
                     putEvent(updatedEvent, eventId)
                         .then(() => history.push("/events"))
